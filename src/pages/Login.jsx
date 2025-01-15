@@ -45,6 +45,7 @@ export default function Login() {
                   ? 'transform translate-x-0'
                   : 'transform -translate-x-1/2'
               }`}>
+                
               {/* Login Form */}
               <div className="w-1/2 px-8 py-8 bg-white">
                 <h2 className="text-xl font-bold mb-4">Login</h2>
