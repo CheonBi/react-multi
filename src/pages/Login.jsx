@@ -1,9 +1,13 @@
+import { useAuth } from '@/store/useStore';
+import { use } from 'react';
 import { useState } from 'react';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLogin, setIsLogin] = useState(true);
+
+  const { Login } = useAuth();
 
   const handleSubmit = (e) => {
     e.preventDefault();

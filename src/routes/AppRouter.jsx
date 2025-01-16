@@ -1,11 +1,13 @@
 import { Loading } from '@/common/Loading';
 import MainLayout from '@/common/MainLayout';
 import Hero from '@/pages/Hero';
+import Login from '@/pages/Login';
 import React, { Suspense } from 'react';
 import {
   BrowserRouter,
   createBrowserRouter,
   Route,
+  RouterProvider,
   Routes,
 } from 'react-router-dom';
 
@@ -22,7 +24,14 @@ const router = createBrowserRouter([
           </Suspense>
         ),
       },
-      {},
+      {
+        path: 'login',
+        element: <Login />,
+      },
     ],
   },
 ]);
+
+export default function AppRouter() {
+  return <RouterProvider router={router} />;
+}
