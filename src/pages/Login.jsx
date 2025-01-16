@@ -11,10 +11,10 @@ export default function Login() {
   };
 
   return (
-    <div className="flex h-screen w-full gap-3 bg-gradient-to-br from-green-200 via-pink-200 to-blue-200">
-      <div className="flex-1 min-h-screen flex items-center justify-center bg-transparent">
-        <div className="bg-transparent p-8 w-full h-full max-w-[100%]">
-          <h2 className="text-2xl font-bold mb-6 text-gray-800 text-center">
+    <div className="flex h-screen w-full gap-3 bg-gray-500/65">
+      <div className="flex-1 flex items-center justify-center bg-transparent">
+        <div className="bg-white shadow-2xl p-8 w-96 max-w-[100%] rounded-xl">
+          <h2 className="text-2xl font-bold mb-6 w-full h-full text-gray-800 text-center">
             <div className="flex justify-between">
               <button
                 className={`w-1/2 py-2 text-center font-medium ${
@@ -45,7 +45,6 @@ export default function Login() {
                   ? 'transform translate-x-0'
                   : 'transform -translate-x-1/2'
               }`}>
-                
               {/* Login Form */}
               <div className="w-1/2 px-8 py-8 bg-white">
                 <h2 className="text-xl font-bold mb-4">Login</h2>
@@ -137,14 +136,8 @@ export default function Login() {
         </div>
       </div>
 
-      <div className="flex-1 min-h-screen flex items-center justify-center bg-transparent">
-        <div className="bg-transparent p-2 w-full h-full max-w-[100%]">
-          <img
-            src="/hero-img.png"
-            alt="Login image"
-            className="object-cover w-full h-full rounded-md"
-          />
-        </div>
+      <div className="flex-1 min-h-screen flex items-center justify-center bg-yellow-200">
+        <div className="bg-transparent p-2 w-full h-full max-w-[100%]"></div>
       </div>
     </div>
   );
