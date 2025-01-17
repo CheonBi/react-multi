@@ -9,7 +9,9 @@ export default function MainLayout() {
   return (
     <div>
       {isAuthenticated ? <AuthHeader /> : <DefaultHeader />}
-      <Outlet />
+      <div className="flex w-3/4 min-h-screen bg-slate-400 justify-center items-center mx-auto">
+        <Outlet />
+      </div>
       <Footer />
     </div>
   );

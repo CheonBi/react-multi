@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 
 const initialState = {
-  isAuthenticated: false,
+  isAuthenticated: true,
 };
 
 const authActions = (set) => ({
