@@ -1,5 +1,7 @@
+import MainLayout from '@/common/layout/MainLayout';
+import TaleLayout from '@/common/layout/TaleLayout';
 import { Loading } from '@/common/Loading';
-import MainLayout from '@/common/MainLayout';
+
 import Hero from '@/pages/Hero';
 import Login from '@/pages/Login';
 import Main from '@/pages/Main';
@@ -34,6 +36,12 @@ const router = createBrowserRouter([
         path: 'main',
         element: <Main />,
       },
+    ],
+  },
+  {
+    path: 'tale',
+    element: <TaleLayout />,
+    children: [
       {
         path: 'share',
         element: <Share />,

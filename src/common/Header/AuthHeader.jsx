@@ -26,7 +26,7 @@ export default function AuthHeader() {
           </li>
           <li>
             <Link
-              to="/share"
+              to="/tale/share"
               className="text-gray-700 hover:text-blue-600 text-xl">
               Share
             </Link>
