@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import { useAuth } from '@/store/useStore';
+import { useAuth } from '@/store/userStore';
 import Footer from '../Footer';
 import AuthHeader from '../Header/AuthHeader';
 import DefaultHeader from '../Header/DefaultHeader';

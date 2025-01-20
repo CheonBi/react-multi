@@ -1,49 +1,9 @@
 import React from 'react';
 import { Route, Link, Router, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import authAxiosInstance from './AuthInstance';
+import { authAxiosInstance } from '@/apis/axiosConfig';
 
 const navigate = useNavigate();
-
-//interceptors
-authAxiosInstance.interceptors.request.use(
-  (config) => {
-    console.log('Request Interceptors Success : ', config);
-    return config;
-  },
-
-  (error) => {
-    console.log('Requset Interceptors Success : ', error);
-    return Promise.reject(error);
-  }
-);
-
-authAxiosInstance.interceptors.response.use((response) => {
-  console.log('Response Interceptors Success : ', response);
-  async (error) => {
-    //Access Token 만료 시 Refresh Token으로 재발급
-    const originalRequest = error.config;
-    console.log(error);
-
-    if (error.response?.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true;
-      const refreshToken = localStorage.getItem('refreshToken');
-
-      if (refreshToken) {
-        try {
-          await authAxiosInstance.post('', { refreshToken });
-          return authAxiosInstance(originalRequest);
-        } catch (refreshError) {
-          console.log('Refresh Token invalid: ', refreshError);
-          navigate('/login');
-        }
-      }
-    }
-
-    console.log('Response Interceptors Error : ', error);
-    return Promise.reject(error);
-  };
-});
 
 /*
     APIs
@@ -52,7 +12,10 @@ authAxiosInstance.interceptors.response.use((response) => {
 
 export const login = async (email, password) => {
   try {
-    const response = authAxiosInstance.post('/login', { email, password });
+    const response = await authAxiosInstance.post('/auth/login', {
+      email,
+      password,
+    });
     console.log('Login successful:', response.data);
   } catch (error) {
     console.log('Error In AuthAPI Login: ', error);
@@ -63,8 +26,8 @@ export const login = async (email, password) => {
 // 로그아웃
 export const logout = async () => {
   try {
-    const response = authAxiosInstance.post('/logout');
-    Router.push('/login');
+    const response = await authAxiosInstance.post('/auth/logout');
+    navigate('/login'); // Router path
     return response;
   } catch (error) {
     console.log('Error In AuthAPI Logout: ', error);
@@ -75,7 +38,10 @@ export const logout = async () => {
 // 회원가입
 export const register = async (email, password) => {
   try {
-    const res = authAxiosInstance.post('/register', { email, password });
+    const res = await authAxiosInstance.post('/auth/register', {
+      email,
+      password,
+    });
     return res;
   } catch (err) {
     console.log('Error In AuthAPI Register: ', err);
@@ -83,13 +49,51 @@ export const register = async (email, password) => {
   }
 };
 
-// 프로필(유저정보)
-export const profile = async (email, password) => {
+//회원가입 이메일 인증 요청
+export const registerEmailSend = async (email) => {
   try {
-    const res = authAxiosInstance.get('/profile');
+    const res = await authAxiosInstance.post('/auth/send', { email });
+    return res;
+  } catch (err) {
+    console.log('Error In AuthAPI RegisterEmailSend: ', err);
+    console.error(err);
+  }
+};
+
+//회원가입 이메일 인증 확인
+export const registerEmailVertify = async (email, code) => {
+  try {
+    const res = await authAxiosInstance.post('/auth/vertify', { email, code });
+    return res;
+  } catch (err) {
+    console.log('Error In AuthAPI RegisterEmailCheck: ', err);
+    console.error(err);
+  }
+};
+
+// 프로필(유저정보) 조회
+export const profile = async (email) => {
+  try {
+    const res = await authAxiosInstance.get(`/member/mypage/${email}`);
     return res;
   } catch (err) {
     console.log('Error In AuthAPI Profile: ', err);
+    console.error(err);
+  }
+};
+
+// 프로필(유저정보) 수정
+export const profileUpdate = async (email, data) => {
+  try {
+    const res = await authAxiosInstance.patch(`/member/mypage`, data, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    console.log(res);
+    return res;
+  } catch (err) {
+    console.log('Error In AuthAPI ProfileUpdate: ', err);
     console.error(err);
   }
 };

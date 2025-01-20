@@ -1,4 +1,4 @@
-import { useAuth } from '@/store/useStore';
+import { useAuth } from '@/store/userStore';
 import { use } from 'react';
 import { useState } from 'react';
 
